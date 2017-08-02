@@ -16,16 +16,43 @@ var requestComplete = function() {
   console.log(this)
   var jsonString = this.responseText;
   var beers = JSON.parse(jsonString);
-  populateList(beers)
+  printBeers(beers)
 }
 
-var populateList = function(beers) {
-  var ul = document.querySelector('#beer-list');
+var printBeers = function(beers) {
+
   beers.forEach(function(beer) {
-    var li = document.createElement('li')
-    li.innerText = beer.name;
-    ul.appendChild(li);
-  });
+    var nameLi = createName(beer);
+    var imageLi = createImage(beer);
+
+    var beerList = document.querySelector('#beer-list');
+    beerList.appendChild(nameLi);
+    beerList.appendChild(imageLi);
+  })
+}
+
+var createImage = function(beers) {
+  var li = document.createElement('li');
+  var image = document.createElement('img');
+  image.src = beers.image_url;
+  image.style.width = "150px";
+  image.style.height = "300px";
+  return li.appendChild(image);
+}
+
+var createName = function(beer) {
+  var li = document.createElement('li');
+  li.innerText = beer.name;
+  return li;
 }
 
 window.addEventListener('load', app);
+
+// var ul = document.querySelector('#beer-list');
+// beers.forEach(function(beer) {
+//   var li = document.createElement('li')
+//   var img = document.createElement('img');
+//   img.src = beer.image_url
+//   li.innerText = beer.name 
+//   ul.appendChild(li);
+// });
